@@ -21,12 +21,17 @@ func main() {
 
 		// Fetch and save the input file
 		inputFilePath := getInputFile(year, day)
-		saveInputFile(year, day, inputFilePath)
+		saveInputFile(day, inputFilePath)
 		createMainGO(day)
 
 		fmt.Printf("Fetch complete! Happy Hacking! ✨🎄\n")
 	}
 }
+
+// createMainGO creates main.go in the current day's directory.
+// main.go uses boiler plate code to fill main.go
+//
+// package main func main(){ }
 func createMainGO(day int){
 	destDir := fmt.Sprintf("Day_%d", day)
 	destFile := fmt.Sprintf("%s/main.go", destDir)
@@ -42,7 +47,11 @@ func createMainGO(day int){
 		log.Fatalf("Failed to create main.go file in %s: %v\n", destDir, err)
 	}
 }
-func saveInputFile(year, day int, inputFilePath string) {
+
+// saveInputFile says the input.txt into the current day's directory
+//
+// IE Day_6/input.txt
+func saveInputFile(day int, inputFilePath string) {
 	destDir := fmt.Sprintf("Day_%d/", day)
 	destFile := destDir + "input.txt" // Destination filename is hardcoded
 
@@ -75,6 +84,8 @@ func saveInputFile(year, day int, inputFilePath string) {
 	log.Printf("File successfully saved to %s\n", destFile)
 }
 
+// getInputFile submits a GET request to adventofcode.com and requests
+// the current day's puzzle input.
 func getInputFile(year, day int) string {
 	envMap := getEnvMap()
 	url := fmt.Sprintf("https://adventofcode.com/%d/day/%d/input", year, day)
@@ -112,6 +123,11 @@ func getInputFile(year, day int) string {
 	return tempFilePath
 }
 
+// getEnvMap returns a map data structure of all environment variables
+// saved in /2024/.env
+//
+// Specifically, this methods returns the session key used in the GET request
+// submitted to Advent of Code for authentication
 func getEnvMap() map[string]string {
 	env := make(map[string]string)
 	fi, err := os.Open(".env")
