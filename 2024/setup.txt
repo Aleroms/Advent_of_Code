@@ -1,0 +1,21 @@
+package main
+
+func main(){
+
+}
+// getInputPuzzle opens the file given and returns a slice of string
+// to be used as puzzle input.
+func getInputPuzzle(filename string) (xs []string) {
+	fi, err := os.Open(filename)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer fi.Close()
+
+	s := bufio.NewScanner(fi)
+	for s.Scan() {
+		ln := s.Text()
+		xs = append(xs, ln)
+	}
+	return xs
+}
