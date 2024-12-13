@@ -15,18 +15,19 @@ func TestGetTrailheads(t *testing.T) {
 	}
 	result := getTrailheads(input)
 	expected := []trailhead{
-		{0 ,2}, 
-		{0 ,4} ,
-		{2 ,4} ,
-		{4, 6} ,
-		{5,2} ,
-		{5 ,5},
-		 {6 ,0} ,
-		 {6, 6}, 
-		 {7, 1},
+		{point{0 ,2},0}, 
+		{point{0 ,4},0} ,
+		{point{2 ,4}, 0} ,
+		{point{4, 6},0},
+		{point{5,2},0},
+		{point{5 ,5},0},
+		{point {6 ,0},0},
+		 {point{6, 6},0}, 
+		 {point{7, 1},0},
 	}
+
 	for idx, th := range result {
-		if th.row != result[idx].row || th.col != result[idx].col {
+		if th.position.row != result[idx].position.row || th.position.col != result[idx].position.col {
 			t.Errorf("Expected %v, Got %v\n",th, expected[idx])
 		}
 	}
